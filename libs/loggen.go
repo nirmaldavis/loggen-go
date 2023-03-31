@@ -5,15 +5,21 @@ import (
 	"time"
 )
 
-func CreateLogs(count int, duration string) {
+func CreateLogs(count int, duration string, sleep string) {
+
+	if len(sleep) == 0 {
+		sleep = "0s"
+	}
+
+	sleepDuration, _ := time.ParseDuration(sleep)
 	if len(duration) > 0 {
-		createLogsTillDuration(duration)
+		createLogsTillDuration(duration, sleepDuration)
 	} else {
-		createLogsTillCount(count)
+		createLogsTillCount(count, sleepDuration)
 	}
 }
 
-func createLogsTillCount(count int) {
+func createLogsTillCount(count int, sleepDuration time.Duration) {
 	number := 1
 	for {
 		if number > count {
@@ -21,10 +27,11 @@ func createLogsTillCount(count int) {
 		}
 		createLog(number)
 		number++
+		time.Sleep(sleepDuration)
 	}
 }
 
-func createLogsTillDuration(duration string) {
+func createLogsTillDuration(duration string, sleepDuration time.Duration) {
 
 	if len(duration) > 0 {
 		timeDuration, _ := time.ParseDuration(duration)
@@ -39,6 +46,7 @@ func createLogsTillDuration(duration string) {
 			}
 			createLog(number)
 			number++
+			time.Sleep(sleepDuration)
 		}
 	}
 }

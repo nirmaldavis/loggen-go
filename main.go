@@ -11,6 +11,7 @@ import (
 var (
 	count    = flag.Int("count", 5, "Run for counts")
 	duration = flag.String("duration", "", "Run for time duration")
+	sleep    = flag.String("sleep", "", "Sleep between logging")
 	listen   = flag.Bool("listen", false, "Listen for instructions")
 )
 
@@ -20,6 +21,7 @@ func main() {
 
 	log.Println("count : ", *count)
 	log.Println("duration : ", *duration)
+	log.Println("sleep : ", *sleep)
 	log.Println("listen : ", *listen)
 
 	log.Println()
@@ -29,5 +31,5 @@ func main() {
 
 	log.Println()
 
-	libs.CreateLogs(*count, *duration)
+	libs.CreateLogs(*count, *duration, *sleep)
 }
